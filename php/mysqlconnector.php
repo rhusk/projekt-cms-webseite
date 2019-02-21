@@ -61,7 +61,7 @@ class MysqlConnector {
 
     public function insert_profile($bankart, $iban, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig){
         $sqlinsert = "INSERT INTO user ( bankart, iban, kontonummer, vornamep, nachnamep, emailp, gueltig )"
-        . " VALUES ('".$bankart."'','".$iban."', '".$kontonummer."', '".$vornamep."', '".$nachnamep."', '".$emailp."', '".$gueltig."');";
+        . " VALUES ('".$bankart."','".$iban."', '".$kontonummer."', '".$vornamep."', '".$nachnamep."', '".$emailp."', '".$gueltig."');";
         if ($this->connection->query($sqlinsert) === TRUE) {
             error_log("User created");
             return true;

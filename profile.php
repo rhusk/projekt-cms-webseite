@@ -1,98 +1,99 @@
 <?php
-require('php/mysqlconnector.php');
-$mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "profile");
-$error = false;
-error_log("Connect Datenbank");
-if(!empty($_POST['submit']))
-{
 
-    error_log('button');
-    $bankart = ($_POST['bankart']);
-    $iban = ($_POST['iban']);
-    $kontonummer = ($_POST['kontonummer']);
-    $vornamep = $_POST['vorname'];
-    $nachnamep = $_POST['nachname'];
-    $emailp = $_POST['email'];
-    $gueltig = $_POST['gueltig'];
-
-    error_log("Button clicked");
-    $bankart_error = "";
-    $iban_error = "";
-    $kontonummer_error = "";
-    $vornamep_error = "";
-    $nachnamep_error = "";
-    $email_errorp = "";
-    $gueltig_error = "";
-
-    if(empty($bankart))
+    require('php/mysqlconnector.php');
+    $mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "profile");
+    $error = false;
+    error_log("Connect Datenbank");
+    if(!empty($_POST['save']))
     {
-        $error=true;
-        $bankart_error=' * Bitte geben sie ihre Bankart an';
-        error_log("Bankkarte scheisse");
-    }
-        error_log("Validating Bankart");
 
-    if(empty($iban))
-    {
-        $error=true;
-        $iban_error=' * Bitte geben sie ihre Iban an';
-        error_log("Iban scheisse");
-    }
-        error_log("Validating Iban");
+        error_log("button");
+        $bankart = $_POST['bankart'];
+        $iban = $_POST['iban'];
+        $kontonummer = $_POST['kontonummer'];
+        $vornamep = $_POST['vorname'];
+        $nachnamep = $_POST['nachname'];
+        $emailp = $_POST['email'];
+        $gueltig = $_POST['gueltig'];
 
+        error_log("Button clicked");
+        $bankart_error = "";
+        $iban_error = "";
+        $kontonummer_error = "";
+        $vornamep_error = "";
+        $nachnamep_error = "";
+        $email_errorp = "";
+        $gueltig_error = "";
 
-    if(empty($kontonummer))
-    {
-        $error=true;
-        $kontonummer_error=' * Bitte geben Sie ihre Kontonummer an';
-        error_log("Kontonummer scheisse");
-    }
-        error_log("Validating Kontonummer");
-
-    if(empty($vornamep))
-    {
-        $error=true;
-        $vornamep_error=' * Bitte geben Sie ihren Vornamen an';
-        error_log("Vorname scheisse");
-    }
-        error_log('Validing Vorname');
-
-    if(empty($nachnamep))
-    {
-        $nachnamep_error = " * Bitte geben Sie ihren nachnamen an";
-        $error=true;
-        error_log("Nachname scheisse");
-    }
-        error_log('Validing Nachname');
-
-    if(empty($emailp))
-    {
-        $error=true;
-        $emailp_error=' * Bitte geben Sie ihre Email an';
-        error_log("Email scheisse");
-    }
-        error_log('Validing Email');
-
-    if(empty($gueltig))
-    {
-        $gueltig_error = " * Bitte geben Sie ein Datum an";
-        $error=true;
-        error_log("Datum scheisse");
-    }
-        error_log('Validing Datum');
-
-    if(false === $error)
-    {
-        error_log("Inserting user...");
-        $mysqlconnector->insert_profile($bankart, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
-
-        error_log("Schreiben des Users in die Session...");
-        $_SESSION['loggedin'] = $emailp;
-
-        error_log('Nun ist der User in der Session in loggedin : ' . $_SESSION['loggedin']);
-        header('Location: profile.php');
+        if(empty($bankart))
+        {
+            $error=true;
+            $bankart_error=' * Bitte geben sie ihre Bankart an';
+            error_log("Bankart scheisse");
         }
-}
+            error_log("Validating Bankart");
+
+        if(empty($iban))
+        {
+            $error=true;
+            $iban_error=' * Bitte geben sie ihre Iban an';
+            error_log("Iban scheisse");
+        }
+            error_log("Validating Iban");
+
+
+        if(empty($kontonummer))
+        {
+            $error=true;
+            $kontonummer_error=' * Bitte geben Sie ihre Kontonummer an';
+            error_log("Kontonummer scheisse");
+        }
+            error_log("Validating Kontonummer");
+
+        if(empty($vornamep))
+        {
+            $error=true;
+            $vornamep_error=' * Bitte geben Sie ihren Vornamen an';
+            error_log("Vorname scheisse");
+        }
+            error_log('Validing Vorname');
+
+        if(empty($nachnamep))
+        {
+            $nachnamep_error = " * Bitte geben Sie ihren nachnamen an";
+            $error=true;
+            error_log("Nachname scheisse");
+        }
+            error_log('Validing Nachname');
+
+        if(empty($emailp))
+        {
+            $error=true;
+            $emailp_error=' * Bitte geben Sie ihre Email an';
+            error_log("Email scheisse");
+        }
+            error_log('Validing Email');
+
+        if(empty($gueltig))
+        {
+            $gueltig_error = " * Bitte geben Sie ein Datum an";
+            $error=true;
+            error_log("Datum scheisse");
+        }
+            error_log('Validing Datum');
+
+        if(false === $error)
+        {
+            error_log("Inserting user...");
+            $mysqlconnector->insert_profile($bankart,$iban, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
+
+            error_log("Schreiben des Users in die Session...");
+            $_SESSION['loggedin'] = $emailp;
+
+            error_log('Nun ist der User in der Session in loggedin : ' . $_SESSION['loggedin']);
+            header('Location: profile.php');
+            }
+    }
 
 ?>
 
@@ -169,16 +170,10 @@ if(!empty($_POST['submit']))
         <div class="row align-items-center justify-content-center">
           <div class="col-md-10 text-center" data-aos="fade">
             <h1 class="mb-4 mb_4">Profile</h1>
-            <form action="profile.php">
-              <label class="form_profile" for="">Bank Art</label>
+            <form action="profile.php" method="POST">
+              <label class="form_konto" for="">Bankart</label>
               <br>
-              <select class="" name="">
-                <option value="auswahl">Auswählen</option>
-                <option value="paypal">PayPal</option>
-                <option value="kreditkarte">Kreditkarte</option>
-                <option value="online">Online Bankkonto</option>
-                <option value="other">Andere</option>
-              </select>
+              <input type="text" name="bankart" value="" style="width:150px;">
               <br>
               <label class="form_konto" for="">IBAN </label>
               <br>
@@ -204,7 +199,7 @@ if(!empty($_POST['submit']))
               <br>
               <input type="date" name="gueltig" value="" style="width:150px;">
               <br><br>
-              <input name="submit" type="submit" value="Save">
+              <input name="save" type="submit" value="Save">
             </form>
             <br>
             <form action="login.php" method="post">
