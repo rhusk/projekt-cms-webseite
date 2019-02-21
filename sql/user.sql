@@ -23,7 +23,6 @@ USE `online_wallet`;
 --
 
 CREATE TABLE `profile` (
-  `bankart` varchar(255) NOT NULL,
   `iban` varchar(255) NOT NULL,
   `kontonummer` varchar(255) NOT NULL,
   `vornamep` varchar(255) NOT NULL,
@@ -51,8 +50,8 @@ CREATE TABLE `user` (
 --
 
 --
-INSERT INTO `profile` (`bankart`, `iban`, `kontonummer`, `vorname`, `nachname`, `email`, `gueltig`) VALUES
-('PayPal', 'DE719839018041414', '9018041414', 'G', 'K', 'G@K.de', '2020-02-05');
+INSERT INTO `profile` (iban`, `kontonummer`, `vorname`, `nachname`, `email`, `gueltig`) VALUES
+(DE719839018041414', '9018041414', 'G', 'K', 'G@K.de', '2020-02-05');
 --
 
 --
