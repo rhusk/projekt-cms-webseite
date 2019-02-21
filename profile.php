@@ -1,8 +1,90 @@
 <?php
+require('php/mysqlconnector.php');
+$mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234");
+$error = false;
+error_log("Im registry");
+if(!empty($_POST['submit']))
+{
 
-require('php/add.php');
+    error_log('button');
+    $bankart = ($_POST['bankart']);
+    $kontonummer = ($_POST['kontonummer']);
+    $vorname = $_POST['vorname'];
+    $nachname = $_POST['nachname'];
+    $email = $_POST['email'];
+    $gueltig = $_POST['gueltig'];
 
- ?>
+    error_log("Button clicked");
+    $bankart_error = "";
+    $kontonummer_error = "";
+    $vorname_error = "";
+    $nachname_error = "";
+    $email_error = "";
+    $gueltig_error = "";
+
+    if(empty($bankart))
+    {
+        $error=true;
+        $bankart_error=' * Bitte geben sie ihre Bankart an';
+        error_log("Bankkarte scheisse");
+    }
+        error_log("Validating Bankart");
+
+    if(empty($nachname))
+    {
+        $error=true;
+        $kontonummer_error=' * Bitte geben Sie ihre Kontonummer an';
+        error_log("Kontonummer scheisse");
+    }
+        error_log("Validating Kontonummer");
+
+    if(empty($vorname))
+    {
+        $error=true;
+        $vorname_error=' * Bitte geben Sie ihren Vornamen an';
+        error_log("Vorname scheisse");
+    }
+        error_log('Validing Vorname');
+
+    if(empty($nachname))
+    {
+        $nachname_error = " * Bitte geben Sie ihren nachnamen an";
+        $error=true;
+        error_log("Nachname scheisse");
+    }
+        error_log('Validing Nachname');
+
+    if(empty($email))
+    {
+        $error=true;
+        $email_error=' * Bitte geben Sie ihre Email an';
+        error_log("Email scheisse");
+    }
+        error_log('Validing Email');
+
+    if(empty($gueltig))
+    {
+        $gueltig_error = " * Bitte geben Sie ein Datum an";
+        $error=true;
+        error_log("Datum scheisse");
+    }
+        error_log('Validing Datum');
+
+    if(false === $error)
+    {
+        error_log("Inserting user...");
+        $mysqlconnector->insert_profile($bankart, $kontonummer, $vorname, $nachname, $email, $gueltig);
+
+        error_log("Schreiben des Users in die Session...");
+        $_SESSION['loggedin'] = $email;
+
+        error_log('Nun ist der User in der Session in loggedin : ' . $_SESSION['loggedin']);
+        header('Location: profile.php');
+        }
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +193,7 @@ require('php/add.php');
               <br>
               <input type="date" name="gueltig" value="" style="width:150px;">
               <br><br>
-              <input name="save" type="submit" value="Save">
+              <input name="submit" type="submit" value="Save">
             </form>
             <br>
             <form action="login.php" method="post">
