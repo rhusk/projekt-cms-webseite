@@ -1,7 +1,6 @@
 <?php
 
-
-
+require('php/add.php');
 
  ?>
 
@@ -77,7 +76,7 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-10 text-center" data-aos="fade">
             <h1 class="mb-4 mb_4">Profile</h1>
-            <form action="/action_page.php">
+            <form action="profile.php">
               <label class="form_profile" for="">Bank Art</label>
               <br>
               <select class="" name="">

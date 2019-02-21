@@ -1,6 +1,5 @@
 <?php
 require('mysqlconnector.php');
-require('../profile.php')
 session_start();
 $mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234");
 $error = false;
