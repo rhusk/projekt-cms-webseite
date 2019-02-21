@@ -50,8 +50,15 @@ CREATE TABLE `user` (
 -- Daten für Tabelle `user`
 --
 
+--
+INSERT INTO `profile` (`bankart`, `iban`, `kontonummer`, `vorname`, `nachname`, `email`, `gueltig`) VALUES
+('PayPal', 'DE719839018041414', '9018041414', 'G', 'K', 'G@K.de', '2020-02-05');
+--
+
+--
 INSERT INTO `user` (`id`, `vorname`, `nachname`, `password`, `email`) VALUES
 (1, 'Gary', 'K', '1234asdf', 'gary@rhusk.de');
+--
 
 --
 -- Indizes der exportierten Tabellen

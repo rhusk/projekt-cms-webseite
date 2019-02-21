@@ -1,7 +1,7 @@
 <?php
 require('php/mysqlconnector.php');
 session_start();
-$mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234");
+$mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "user");
 $error = false;
 error_log("Im registry");
 if(!empty($_POST['submit'])) // Überprüfung, ob Button geklickt wurde

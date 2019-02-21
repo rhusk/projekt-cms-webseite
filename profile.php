@@ -1,25 +1,27 @@
 <?php
 require('php/mysqlconnector.php');
-$mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234");
+$mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "profile");
 $error = false;
-error_log("Im registry");
+error_log("Connect Datenbank");
 if(!empty($_POST['submit']))
 {
 
     error_log('button');
     $bankart = ($_POST['bankart']);
+    $iban = ($_POST['iban']);
     $kontonummer = ($_POST['kontonummer']);
-    $vorname = $_POST['vorname'];
-    $nachname = $_POST['nachname'];
-    $email = $_POST['email'];
+    $vornamep = $_POST['vorname'];
+    $nachnamep = $_POST['nachname'];
+    $emailp = $_POST['email'];
     $gueltig = $_POST['gueltig'];
 
     error_log("Button clicked");
     $bankart_error = "";
+    $iban_error = "";
     $kontonummer_error = "";
-    $vorname_error = "";
-    $nachname_error = "";
-    $email_error = "";
+    $vornamep_error = "";
+    $nachnamep_error = "";
+    $email_errorp = "";
     $gueltig_error = "";
 
     if(empty($bankart))
@@ -30,7 +32,16 @@ if(!empty($_POST['submit']))
     }
         error_log("Validating Bankart");
 
-    if(empty($nachname))
+    if(empty($iban))
+    {
+        $error=true;
+        $iban_error=' * Bitte geben sie ihre Iban an';
+        error_log("Iban scheisse");
+    }
+        error_log("Validating Iban");
+
+
+    if(empty($kontonummer))
     {
         $error=true;
         $kontonummer_error=' * Bitte geben Sie ihre Kontonummer an';
@@ -38,26 +49,26 @@ if(!empty($_POST['submit']))
     }
         error_log("Validating Kontonummer");
 
-    if(empty($vorname))
+    if(empty($vornamep))
     {
         $error=true;
-        $vorname_error=' * Bitte geben Sie ihren Vornamen an';
+        $vornamep_error=' * Bitte geben Sie ihren Vornamen an';
         error_log("Vorname scheisse");
     }
         error_log('Validing Vorname');
 
-    if(empty($nachname))
+    if(empty($nachnamep))
     {
-        $nachname_error = " * Bitte geben Sie ihren nachnamen an";
+        $nachnamep_error = " * Bitte geben Sie ihren nachnamen an";
         $error=true;
         error_log("Nachname scheisse");
     }
         error_log('Validing Nachname');
 
-    if(empty($email))
+    if(empty($emailp))
     {
         $error=true;
-        $email_error=' * Bitte geben Sie ihre Email an';
+        $emailp_error=' * Bitte geben Sie ihre Email an';
         error_log("Email scheisse");
     }
         error_log('Validing Email');
@@ -73,10 +84,10 @@ if(!empty($_POST['submit']))
     if(false === $error)
     {
         error_log("Inserting user...");
-        $mysqlconnector->insert_profile($bankart, $kontonummer, $vorname, $nachname, $email, $gueltig);
+        $mysqlconnector->insert_profile($bankart, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
 
         error_log("Schreiben des Users in die Session...");
-        $_SESSION['loggedin'] = $email;
+        $_SESSION['loggedin'] = $emailp;
 
         error_log('Nun ist der User in der Session in loggedin : ' . $_SESSION['loggedin']);
         header('Location: profile.php');
