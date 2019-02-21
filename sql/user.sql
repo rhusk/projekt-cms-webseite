@@ -51,7 +51,7 @@ CREATE TABLE `user` (
 
 --
 INSERT INTO `profile` (iban`, `kontonummer`, `vorname`, `nachname`, `email`, `gueltig`) VALUES
-(DE719839018041414', '9018041414', 'G', 'K', 'G@K.de', '2020-02-05');
+('DE9018041414', '9018041414', 'G', 'K', 'G@K.de', '2020-02-05');
 --
 
 --

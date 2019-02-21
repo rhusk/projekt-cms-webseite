@@ -74,13 +74,9 @@
 
         if(false === $error)
         {
-            error_log("Inserting user...");
+            error_log("writing..");
             $mysqlconnector->insert_profile($iban, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
 
-            error_log("Schreiben des Users in die Session...");
-            $_SESSION['loggedin'] = $emailp;
-
-            error_log('Nun ist der User in der Session in loggedin : ' . $_SESSION['loggedin']);
             header('Location: profile.php');
             }
     }
@@ -161,7 +157,7 @@
           <div class="col-md-10 text-center" data-aos="fade">
             <h1 class="mb-4 mb_4">Profile</h1>
             <form action="profile.php" method="POST">
-              <label class="form_konto" for="">IBAN </label>
+              <label class="form_konto" for="">IBAN</label>
               <br>
               <input type="text" name="iban" value="" style="width:150px;">
               <br>
