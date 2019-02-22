@@ -1,7 +1,7 @@
 <?php
 
     require('php/mysqlconnector.php');
-    $mysqlconnector = new mysqli("localhost", "rhusk", "asdf1234", "profile");
+    $mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "profile");
     $error = false;
     error_log("Connect Datenbank");
     if(!empty($_POST['save']))
@@ -92,8 +92,9 @@
 
 
         $sql = "SELECT * FROM profile";
+            error_log('will select');
         $result = $mysqlconnector->query($sql);
-
+            error_log('macht select');
             while($row = $result->fetch_assoc()) {
                 echo $row->bankart;
             }
