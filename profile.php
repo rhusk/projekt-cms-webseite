@@ -1,7 +1,7 @@
 <?php
 
     require('php/mysqlconnector.php');
-    $mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "profile");
+    $mysqlconnector = new MysqlConnector("localhost", "test", "test", "profile");
     $error = false;
     error_log("Connect Datenbank");
     if(!empty($_POST['save']))
@@ -86,19 +86,9 @@
         {
             error_log("writing..");
             $mysqlconnector->insert_profile($bankart, $iban, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
-
-            header('Location: profile.php');
+            error_log("now goint to show..");
+            header('Location: show_profile.php');
         }
-
-
-        $sql = "SELECT * FROM profile";
-            error_log('will select');
-        $result = $mysqlconnector->query($sql);
-            error_log('macht select');
-            while($row = $result->fetch_assoc()) {
-                echo $row->bankart;
-            }
-
     }
 
 ?>
