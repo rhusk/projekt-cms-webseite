@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Erstellungszeit: 20. Feb 2019 um 15:57
+-- Erstellungszeit: 22. Feb 2019 um 09:54
 -- Server-Version: 5.7.23
 -- PHP-Version: 7.2.10
 
@@ -11,7 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Datenbank: `Online Wallet`
+-- Datenbank: `online_wallet`
 --
 CREATE DATABASE IF NOT EXISTS `online_wallet` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `online_wallet`;
@@ -23,12 +23,14 @@ USE `online_wallet`;
 --
 
 CREATE TABLE `profile` (
+  `id` int(11) NOT NULL,
+  `bankart` varchar(255) NOT NULL,
   `iban` varchar(255) NOT NULL,
   `kontonummer` varchar(255) NOT NULL,
   `vornamep` varchar(255) NOT NULL,
   `nachnamep` varchar(255) NOT NULL,
   `emailp` varchar(255) NOT NULL,
-  `gueltig` date NOT NULL
+  `gueltig` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -49,19 +51,19 @@ CREATE TABLE `user` (
 -- Daten für Tabelle `user`
 --
 
---
-INSERT INTO `profile` (iban`, `kontonummer`, `vorname`, `nachname`, `email`, `gueltig`) VALUES
-('DE9018041414', '9018041414', 'G', 'K', 'G@K.de', '2020-02-05');
---
-
---
 INSERT INTO `user` (`id`, `vorname`, `nachname`, `password`, `email`) VALUES
-(1, 'Gary', 'K', '1234asdf', 'gary@rhusk.de');
---
+(1, '.rhusk.', '.wallet', '$2y$10$7b.BHdmwwP3UEr04HH8FTuozAKVUH6s.VRWmKssz/N4TGPahND0x.', 'asdf1234'),
+
 
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `profile`
+--
+ALTER TABLE `profile`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `user`
@@ -76,5 +78,13 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT für Tabelle `user`
 --
+
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  
+--
+----
+--
+
+  ALTER TABLE `profile`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;

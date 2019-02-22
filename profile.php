@@ -1,13 +1,14 @@
 <?php
 
     require('php/mysqlconnector.php');
-    $mysqlconnector = new MysqlConnector("localhost", "rhusk", "asdf1234", "profile");
+    $mysqlconnector = new mysqli("localhost", "rhusk", "asdf1234", "profile");
     $error = false;
     error_log("Connect Datenbank");
     if(!empty($_POST['save']))
     {
 
         error_log("button");
+        $bankart = $_POST['bankart'];
         $iban = $_POST['iban'];
         $kontonummer = $_POST['kontonummer'];
         $vornamep = $_POST['vorname'];
@@ -16,12 +17,21 @@
         $gueltig = $_POST['gueltig'];
 
         error_log("Button clicked");
+        $bankart_error = "";
         $iban_error = "";
         $kontonummer_error = "";
         $vornamep_error = "";
         $nachnamep_error = "";
         $email_errorp = "";
         $gueltig_error = "";
+
+        if(empty($bankart))
+        {
+            $error=true;
+            $bankart_error=' * Bitte geben sie ihre Bankart an';
+            error_log("Bankart scheisse");
+        }
+            error_log("Validating Bankart");
 
         if(empty($iban))
         {
@@ -75,10 +85,19 @@
         if(false === $error)
         {
             error_log("writing..");
-            $mysqlconnector->insert_profile($iban, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
+            $mysqlconnector->insert_profile($bankart, $iban, $kontonummer, $vornamep, $nachnamep, $emailp, $gueltig);
 
             header('Location: profile.php');
+        }
+
+
+        $sql = "SELECT * FROM profile";
+        $result = $mysqlconnector->query($sql);
+
+            while($row = $result->fetch_assoc()) {
+                echo $row->bankart;
             }
+
     }
 
 ?>
@@ -157,6 +176,10 @@
           <div class="col-md-10 text-center" data-aos="fade">
             <h1 class="mb-4 mb_4">Profile</h1>
             <form action="profile.php" method="POST">
+              <label class="form_konto" for="">Kontro Art</label>
+              <br>
+              <input type="text" name="bankart" value="" style="width:150px;">
+              <br>
               <label class="form_konto" for="">IBAN</label>
               <br>
               <input type="text" name="iban" value="" style="width:150px;">
