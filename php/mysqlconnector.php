@@ -34,6 +34,20 @@ class MysqlConnector {
       }
     }
 
+
+    public function show_profile($email){
+
+    $sql = "SELECT * FROM profile where email = '" .$email ."''";
+    error_log('selecting profile for email : ' .$email);
+    $result = $mysqlconnector->query($sql);
+        error_log('macht select');
+        while($row = $result->fetch_assoc()) {
+            return $row;
+        }
+
+    }
+
+
   //Methode gibt boolean zurück, ob der Benutzer im System ist
   public function user_exists($email){
     $userexists = false;
